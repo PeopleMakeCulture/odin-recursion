@@ -17,9 +17,18 @@ end
 
 def quick_sort(array)
   pivot = array.sample(1)[0]
-  return quick_sort( array.find_all {|x| x < pivot }) + [pivot] + quick_sort( array.find_all {|x| x > pivot }) if array.length > 1
+  return quick_sort( array.find_all {|x| x < pivot })+ array.find_all{ |x| x == pivot}+ quick_sort( array.find_all {|x| x > pivot }) if array.length > 1
   array
 end
 
 
- 
+def times(n)
+puts "merge  ".ljust(35)+   "quick ".ljust(35) +" n " if n == 0
+q =   Benchmark::realtime{
+  quick_sort((1..n).to_a.shuffle)
+}
+m =   Benchmark::realtime{
+    merge_sort((1..n).to_a.shuffle)
+  }
+puts "  #{m}".ljust(35)+   " #{q}".ljust(35) +"  #{n}"
+end
